@@ -5,6 +5,8 @@ const router = express.Router()
 
 
 router.get('/', async  (req,res) =>{
-    const product = await getAllProduct();
-    res.status(200).send(product)
+    const products = await getAllProduct();
+    res.status(200).send(products)
 })
+
+export default router;
