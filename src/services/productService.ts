@@ -28,3 +28,4 @@ export const seedInitialProduct = async () => {
 };
 
   export default router;
+

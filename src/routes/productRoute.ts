@@ -1,5 +1,5 @@
-import express from "express";
-import { getAllProduct} from "../services/productService";
+ import express from "express";
+ import { getAllProduct} from "../services/productService";
 
 const router = express.Router()
 
@@ -10,3 +10,5 @@ router.get('/', async  (req,res) =>{
 })
 
 export default router;
+
+
