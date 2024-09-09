@@ -1,8 +1,9 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid,} from "@mui/material";
 import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
 import { Product } from "../types/Product";
 import { BASE_URL } from "../constants/baseURL";
+
 
 const HomePage = () => {
   const [product, setProduct] = useState<Product[]>([]);
@@ -25,7 +26,7 @@ const HomePage = () => {
   if(error) {
     return <Box>Something Went wrong</Box>
   }
-
+  
   return (
     <Container sx={{ mt: 2 }}>
       <Grid container spacing={2}>

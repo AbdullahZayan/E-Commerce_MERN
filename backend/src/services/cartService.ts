@@ -2,8 +2,7 @@ import { get } from "mongoose";
 import { cartModel } from "../models/cartModel";
 import productModel from "../models/productModel";
 import { IOrderItem } from "../models/orderModel";
-import { orderModel } from '../models/orderModel';
-
+import { orderModel } from "../models/orderModel";
 
 interface ICartItem {
   product: any; // Replace 'any' with the actual product type if known
@@ -35,22 +34,21 @@ export const getActiveCartForUser = async ({
   return cart;
 };
 
-// Delete All Cart 
+// Delete All Cart
 
 interface ClearCart {
   userId: string;
 }
 
 export const clearCart = async ({ userId }: ClearCart) => {
-  const cart = await getActiveCartForUser({ userId })
+  const cart = await getActiveCartForUser({ userId });
 
-  cart.items= []
-  cart.totalAmount = 0
-  const updatedCart = await cart.save()
+  cart.items = [];
+  cart.totalAmount = 0;
+  const updatedCart = await cart.save();
 
-  return { data: updatedCart, statusCode: 200}
-
-}
+  return { data: updatedCart, statusCode: 200 };
+};
 interface AddItemToCart {
   productId: any;
   userId: string;
@@ -184,47 +182,46 @@ const calculateCartTotalItems = ({ cartItems }: { cartItems: ICartItem[] }) => {
   return total;
 };
 
-interface Checkout{
+interface Checkout {
   userId: string;
-  address: string
+  address: string;
 }
 
 export const checkout = async ({ userId, address }: Checkout) => {
-
-  if(!address) {
-    return { data: "please add the address", statusCode: 400};
+  if (!address) {
+    return { data: "please add the address", statusCode: 400 };
   }
   const cart = await getActiveCartForUser({ userId });
 
-  const orderItems: IOrderItem [] = [];
+  const orderItems: IOrderItem[] = [];
 
   // Loop for cart items and create order items
-  for(const item of cart.items) {
-    const product = await productModel.findById(item.product)
+  for (const item of cart.items) {
+    const product = await productModel.findById(item.product);
 
-    if(!product) {
-      return { data: "product not found", statusCode: 400 }
+    if (!product) {
+      return { data: "product not found", statusCode: 400 };
     }
     const orderItem: IOrderItem = {
       productTitle: product.title,
       productImage: product.image,
       quantity: item.quantity,
-      unitPrice: item.unitPrice
-    }
-    orderItems.push(orderItem)
+      unitPrice: item.unitPrice,
+    };
+    orderItems.push(orderItem);
   }
 
   const order = await orderModel.create({
     orderItems,
     total: cart.totalAmount,
-    address, 
-    userId
+    address,
+    userId,
   });
-await order.save();
+  await order.save();
 
-// Update the cart status to be completed
-cart.status = "completed";
-await cart.save();
+  // Update the cart status to be completed
+  cart.status = "completed";
+  await cart.save();
 
-return { data: order, statusCode: 200};
+  return { data: order, statusCode: 200 };
 };
