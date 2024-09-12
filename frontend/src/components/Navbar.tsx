@@ -14,9 +14,11 @@ import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import { useAuth } from "../context/Auth/AuthContext";
 import { Badge, Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/Cart/CartContext";
 
 function Navbar() {
   const { username, isAuthenticated, logout } = useAuth();
+  const { cartItems } = useCart();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -58,29 +60,34 @@ function Navbar() {
               width: "100%",
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
+            <Button
+              variant="text"
+              sx={{ color: "white" }}
+              onClick={() => navigate("/")}
             >
-              <AdbIcon sx={{ display: "flex", mr: 1 }} />
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
+              <Box
                 sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "monospace",
-                  fontWeight: 700,
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
-                Zayan TechShop
-              </Typography>
-            </Box>
-
+                <AdbIcon sx={{ display: "flex", mr: 1 }} />
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  sx={{
+                    mr: 2,
+                    display: { xs: "none", md: "flex" },
+                    fontFamily: "monospace",
+                    fontWeight: 700,
+                  }}
+                >
+                  Zayan TechShop
+                </Typography>
+              </Box>
+            </Button>
             <Box
               gap={4}
               alignItems="center"
@@ -89,8 +96,8 @@ function Navbar() {
               flexDirection="row"
             >
               <IconButton aria-label="cart" onClick={handleCart}>
-                <Badge badgeContent={4} color="secondary">
-                  <ShoppingCart sx= {{color: 'white'}}/>
+                <Badge badgeContent={cartItems.length} color="secondary">
+                  <ShoppingCart sx={{ color: "white" }} />
                 </Badge>
               </IconButton>
               {isAuthenticated ? (
