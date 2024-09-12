@@ -29,15 +29,16 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             const cart = await response.json();
             const cartItemsMapped = cart.items.map(
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              ({product, quantity}: {product: any; quantity: number}) => ({
+              ({product, quantity, unitPrice}: {product: any; quantity: number, unitPrice: number}) => ({
               productId: product._id,
               title: product.title,
               image: product.image,
               quantity,
-              unitPrice: product.unitPrice,
+              unitPrice,
             }));
 
             setCartItems(cartItemsMapped);
+            setTotalAmount(cart.totalAmount);
         };
 
         fetchCart();
