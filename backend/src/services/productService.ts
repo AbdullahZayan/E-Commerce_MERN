@@ -87,6 +87,7 @@ export const seedInitialProduct = async () => {
       },
     ];
 
+    
     const existingProduct = await getAllProduct();
     if (existingProduct.length === 0) {
       await productModel.insertMany(product);
