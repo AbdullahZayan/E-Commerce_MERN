@@ -4,9 +4,8 @@ import mongoose from "mongoose";
 import userRoute from "./routes/userRoute";
 import productRoute from "./routes/productRoute";
 import cartRoute from "./routes/cartRoute";
-import { seedInitialProduct } from "./services/productService";
-// import * as cors from "cors" ;
-const cors = require("cors");
+import { seedInitialProducts } from "./services/productService";
+import cors from "cors";
 
 dotenv.config();
 
@@ -21,12 +20,13 @@ mongoose
   .then(() => console.log("Mongo connected!"))
   .catch((err) => console.log("Failed to connect!", err));
 
-// Seed the product to database
-seedInitialProduct();
+// Seed the products to database
+seedInitialProducts();
 
 app.use("/user", userRoute);
 app.use("/product", productRoute);
 app.use("/cart", cartRoute);
+
 app.listen(port, () => {
   console.log(`Server is running at: http://localhost:${port}`);
 });

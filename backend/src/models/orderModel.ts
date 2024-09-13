@@ -14,7 +14,7 @@ export interface IOrder extends Document {
   userId: ObjectId | string;
 }
 
-const orderItemSchema = new Schema<IOrderItem>({
+const OrderItemSchema = new Schema<IOrderItem>({
   productTitle: { type: String, required: true },
   productImage: { type: String, required: true },
   unitPrice: { type: Number, required: true },
@@ -22,7 +22,7 @@ const orderItemSchema = new Schema<IOrderItem>({
 });
 
 const OrderSchema = new Schema<IOrder>({
-  orderItems: [orderItemSchema],
+  orderItems: [OrderItemSchema],
   total: { type: Number, required: true },
   address: { type: String, required: true },
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
