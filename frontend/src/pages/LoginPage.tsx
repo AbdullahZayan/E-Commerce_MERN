@@ -1,8 +1,11 @@
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import { brown } from "@mui/material/colors";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import { useRef, useState } from "react";
 import { BASE_URL } from "../constants/baseURL";
-import {useAuth} from "../context/Auth/AuthContext"
+import { useAuth } from "../context/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -11,22 +14,18 @@ const LoginPage = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
-  const {login} = useAuth();
 
-  
+  const { login } = useAuth();
 
   const onSubmit = async () => {
-    
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
-    //validate the form data
-    if( !email || !password) {
-        setError('Check submitted data')
-        return;
+    // Validate the form data
+    if (!email || !password) {
+      setError("Check submitted data.");
+      return;
     }
-
-
 
     // Make the call to API to create the user
     const response = await fetch(`${BASE_URL}/user/login`, {
@@ -41,23 +40,21 @@ const LoginPage = () => {
     });
 
     if (!response.ok) {
-      setError(
-        "Unable to Login user, please try sure your email or password!"
-      );
+      setError("Unable to login user, please try different credientials!");
       return;
     }
 
     const token = await response.json();
 
-    if(!token) {
-        setError("Incorrect token")
-        return;
+    if (!token) {
+      setError("Incorrect token");
+      return;
     }
 
-    login(email, token)
-
-    navigate("/")
+    login(email, token);
+    navigate("/");
   };
+
   return (
     <Container>
       <Box
@@ -66,10 +63,10 @@ const LoginPage = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          mt: 3,
+          mt: 4,
         }}
       >
-        <Typography variant="h4">Login to Your Account</Typography>
+        <Typography variant="h6">Login to Your Account</Typography>
         <Box
           sx={{
             display: "flex",
@@ -77,11 +74,10 @@ const LoginPage = () => {
             gap: 2,
             mt: 2,
             border: 1,
-            padding: 2,
-            borderColor: brown,
+            borderColor: "#f5f5f5",
+            p: 2,
           }}
         >
-         
           <TextField inputRef={emailRef} label="Email" name="email" />
           <TextField
             inputRef={passwordRef}
