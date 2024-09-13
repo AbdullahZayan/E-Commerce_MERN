@@ -53,7 +53,7 @@ const CartPage = () => {
             <Box>
               <Typography variant="h6">{item.title}</Typography>
               <Typography>
-                {item.quantity} x {item.unitPrice} EGP
+                {item.quantity} x {item.unitPrice} RM
               </Typography>
               <Button onClick={() => handleRemoveItem(item.productId)}>
                 Remove Item
@@ -76,7 +76,7 @@ const CartPage = () => {
       ))}
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Typography variant="h4">
-          Total Amount: {totalAmount.toFixed(2)} EGP
+          Total Amount: {totalAmount.toFixed(2)} Rm
         </Typography>
         <Button variant="contained" onClick={handleCheckout}>
           Go To Checkout
