@@ -8,6 +8,7 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
   const { token } = useAuth();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [totalAmount, setTotalAmount] = useState<number>(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState("");
 
   useEffect(() => {
